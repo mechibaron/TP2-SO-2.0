@@ -3,7 +3,7 @@
 #include <memoryManager.h>
 
 #define START_ADDRESS 0xF00000
-#define MEMORY_MANAGMENT_NAME "Fixed size allocation"
+#define MEMORY_MANAGMENT_NAME "Size allocation"
 
 typedef struct blockCDT
 {
