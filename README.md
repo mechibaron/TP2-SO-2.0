@@ -1,7 +1,7 @@
 # TP2 Sistemas Operativos
 ## Integrantes
-*Maria Mercedes Baron
-*Segundo Martinez Tanoira
+* Maria Mercedes Baron
+* Segundo Martinez Tanoira
 ## Requerimientos
 Se debe instalar el entorno de docker, corriendo el siguiente comando en la terminal.
 ```bash
