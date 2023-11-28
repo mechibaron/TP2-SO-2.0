@@ -21,52 +21,34 @@ Pipe *pipeOpen()
     return newPipe;
 }
 
-pipeNode *findPipeInList(Pipe *pipe) {
-    pipeNode *current = pipesList;
-    while (current != NULL && current->pipe != pipe) {
-        current = current->next;
-    }
-    return current;
-}
 
-void cleanupAndRemovePipe(pipeNode *node) {
-    if (node == NULL) {
-        return;
-    }
-
-    freeQueue(node->pipe->readQueue);
-    freeQueue(node->pipe->writeQueue);
-    
-    if (node->next != NULL) {
-        node->next->previous = node->previous;
-    }
-    
-    if (node->previous != NULL) {
-        node->previous->next = node->next;
-    }
-
-    free_memory_manager(node);
-    free_memory_manager(node->pipe);
-}
-
-
-// TODO tengo que ver como liberar las queues
 int pipeClose(Pipe *pipe) {
-    // Decrement the process count, if greater than 1
-    if (pipe->processCount > 1) {
+    if (pipe->processCount > 1)
+    {
         pipe->processCount--;
     }
-
-    // Encontramos el pipe en la lista
-    pipeNode *current = findPipeInList(pipe);
-    
-    if (current == NULL) {
-        return 0; 
+    pipeNode *current = pipesList;
+    while (current != NULL && current->pipe != pipe)
+    {
+        current = current->next;
+    }
+    if (current == NULL)
+    {
+        return 0;
     }
 
-    // Limpiamos el pipe
-    cleanupAndRemovePipe(current);
-
+    freeQueue(pipe->readQueue);
+    freeQueue(pipe->writeQueue);
+    if (current->next != NULL)
+    {
+        current->next->previous = current->previous;
+    }
+    if (current->previous != NULL)
+    {
+        current->previous->next = current->next;
+    }
+    free_memory_manager(current);
+    free_memory_manager(pipe);
     return 1;
 }
 

@@ -308,28 +308,22 @@ void blockProcess(int argc, char *argv[])
     }
 }
 
-void cat(int argc, char *argv[])
-{
-    int i = 0, c = getChar();
-    while (c != EOF)
-    {
-        if (c == '\b' && i > 0)
-        {
-            i--;
-            putChar(c);
-        }
-        else if (c == '\b' && i == 0)
-        {
-            // no hago nada
-        }
-        else
-        {
+void cat(int argc, char *argv[]) {
+    int i = 0, c;
+
+    while ((c = getChar()) != EOF) {
+        if (c == '\b') {
+            if (i > 0) {
+                i--;
+                putChar(c);
+            }
+        } else {
             i++;
             putChar(c);
         }
-        c = getChar();
     }
 }
+
 
 void wc(int argc, char *argv[])
 {

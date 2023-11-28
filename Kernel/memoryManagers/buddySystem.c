@@ -14,7 +14,7 @@ typedef struct Block {
     int is_free;
 } Block;
 
-Block memory[MEMORY_SIZE];
+Block memory[MIN_BUDDY_SIZE];
 
 // Inicializa la memoria
 void createMemory(size_t size) {
@@ -36,7 +36,7 @@ void split(Block *block, size_t size) {
 
 // Asigna memoria
 void *memory_manager_malloc(size_t nbytes) {
-    if (nbytes == 0 || nbytes > MEMORY_SIZE) {
+    if (nbytes == 0 || nbytes > MIN_BUDDY_SIZE) {
         return NULL;
     }
 
@@ -109,7 +109,7 @@ MemoryInfo *mem_info() {
     MemoryInfo *info = (MemoryInfo *)malloc(sizeof(MemoryInfo));
     if (info != NULL) {
         info->memoryAlgorithmName = MEMORY_MANAGEMENT_NAME; // Asigna el nombre de tu algoritmo aquí
-        info->totalMemory = MEMORY_SIZE;
+        info->totalMemory = MIN_BUDDY_SIZE;
         info->occupiedMemory = usedMemory;
         info->freeMemory = freeMemory;
         info->blocksUsed = blockCount;
